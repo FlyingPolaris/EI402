@@ -1,5 +1,9 @@
-sudo add-apt-repository universe
-sudo add-apt-repository multiverse
-sudo apt-get update
-sudo apt-get install gstreamer1.0-tools gstreamer1.0-alsa gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav
-sudo apt-get install libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libgstreamer-plugins-good1.0-dev libgstreamer-plugins-bad1.0-dev
+cd opencv-4.5.0
+
+mkdir build
+
+cd build
+
+cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D OPENCV_GENERATE_PKGCONFIG=ON -D BUILD_EXAMPLES=OFF -D INSTALL_PYTHON_EXAMPLES=OFF -D INSTALL_C_EXAMPLES=OFF -D PYTHON_EXECUTABLE=$(which python2) -D BUILD_opencv_python2=OFF -D PYTHON3_EXECUTABLE=/home/tin/miniforge3/envs/reid/bin/python3.6m -D WITH_GSTREAMER=ON -D PYTHON3_INCLUDE_DIR=/home/tin/miniforge3/envs/reid/include/python3.6m -D PYTHON3_PACKAGES_PATH= /home/tin/miniforge3/envs/reid/lib/python3.6/site-packages -D PYTHON3_LIBRARY=/home/tin/miniforge3/envs/reid/lib/libpython3.6m.so -D PYTHON3_NUMPY_INCLUDE_DIRS=/home/tin/miniforge3/envs/reid/lib/python3.6/site-packages/numpy/core/include -D PYTHON_DEFAULT_EXECUTABLE=/home/tin/miniforge3/envs/reid/bin/python3.6m ..
+
+make -j8
