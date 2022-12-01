@@ -1,1 +1,1 @@
-sudo dpkg -r --force-depends $(dpkg --list | grep -E -o 'cuda-documentation-[0-9\-]*') $(dpkg --list | grep -E -o 'cuda-samples-[0-9\-]*') "libnvinfer-doc" "libnvinfer-samples" "libvisionworks-samples" "vpi.-samples"
+sudo find / -name 'lib*_static*.a' | tr '\n' '\0' | du -sch --files0-from=-
