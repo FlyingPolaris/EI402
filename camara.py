@@ -1,62 +1,22 @@
 import cv2
 
-# 设置gstreamer管道参数
-def gstreamer_pipeline(
-    capture_width=1280, #摄像头预捕获的图像宽度
-    capture_height=720, #摄像头预捕获的图像高度
-    display_width=1280, #窗口显示的图像宽度
-    display_height=720, #窗口显示的图像高度
-    framerate=60,       #捕获帧率
-    flip_method=0,      #是否旋转图像
-):
-    return (
-        "nvarguscamerasrc ! "
-        "video/x-raw(memory:NVMM), "
-        "width=(int)%d, height=(int)%d, "
-        "format=(string)NV12, framerate=(fraction)%d/1 ! "
-        "nvvidconv flip-method=%d ! "
-        "video/x-raw, width=(int)%d, height=(int)%d, format=(string)BGRx ! "
-        "videoconvert ! "
-        "video/x-raw, format=(string)BGR ! appsink"
-        % (
-            capture_width,
-            capture_height,
-            framerate,
-            flip_method,
-            display_width,
-            display_height,
-        )
-    )
+cap = cv2.VideoCapture(0)
 
-if __name__ == "__main__":
-    capture_width = 1280
-    capture_height = 720
+if (cap.isOpened()== False): 
+  print("Error opening video stream or file")
 
-    display_width = 1280
-    display_height = 720
+while(cap.isOpened()):
+  ret, frame = cap.read()
+  if ret == True:
 
-    framerate = 60			# 帧数
-    flip_method = 0			# 方向
+    cv2.imshow('Frame',frame)
 
-    # 创建管道
-    print(gstreamer_pipeline(capture_width,capture_height,display_width,display_height,framerate,flip_method))
+    if cv2.waitKey(25) & 0xFF == ord('q'):
+      break
 
-    #管道与视频流绑定
-    cap = cv2.VideoCapture(gstreamer_pipeline(flip_method=0), cv2.CAP_GSTREAMER)
+  else: 
+    break
 
-    if cap.isOpened():
-        window_handle = cv2.namedWindow("CSI Camera", cv2.WINDOW_AUTOSIZE)
+cap.release()
 
-        # 逐帧显示
-        while cv2.getWindowProperty("CSI Camera", 0) >= 0:
-            ret_val, img = cap.read()
-            cv2.imshow("CSI Camera", img)
-
-            keyCode = cv2.waitKey(30) & 0xFF
-            if keyCode == 27:# ESC键退出
-                break
-
-        cap.release()
-        cv2.destroyAllWindows()
-    else:
-        print("fail to open camara") 
+cv2.destroyAllWindows()
