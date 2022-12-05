@@ -1,10 +1,9 @@
-wget https://soft.laozuo.org/tools/setuptools-0.6c11.tar.gz
+wget http://pypi.python.org/packages/source/s/setuptools/setuptools-0.6c11.tar.gz
 
-tar -zxvf setuptools*.tar.gz
+tar -xvf setuptools-0.6c11.tar.gz
 
 cd setuptools-0.6c11
 
 python setup.py build
-
 
 python setup.py install
