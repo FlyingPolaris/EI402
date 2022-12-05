@@ -1,3 +1,10 @@
-git clone https://github.com/NVIDIA-AI-IOT/jetcam
-cd jetcam
-sudo python3 setup.py install
+wget https://soft.laozuo.org/tools/setuptools-0.6c11.tar.gz
+
+tar -zxvf setuptools*.tar.gz
+
+cd setuptools-0.6c11
+
+python setup.py build
+
+
+python setup.py install
